@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emmanuel Chukwuka | AI-Crafted Documents</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0b0c0e; --surface: #111316; --border: #1e2128; --border-glow: #2e3340;
+      --gold: #c8a96e; --gold-dim: #8a6f42; --text: #e8e4dc; --text-muted: #7a7670;
+      --text-dim: #4a4844; --accent: #d4b483;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; font-weight: 300; min-height: 100vh; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.5; }
+    header { position: relative; padding: 80px 40px 60px; max-width: 900px; margin: 0 auto; }
+    .header-rule { width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--gold)); margin: 0 auto 40px; animation: fadeDown 1s ease forwards; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); border: 1px solid var(--border-glow); padding: 6px 16px; border-radius: 2px; margin-bottom: 28px; animation: fadeUp 0.8s ease 0.2s both; }
+    .badge::before { content: ''; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(42px, 7vw, 72px); line-height: 1.05; letter-spacing: -0.01em; color: var(--text); animation: fadeUp 0.8s ease 0.4s both; margin-bottom: 10px; }
+    h1 em { font-style: italic; color: var(--gold); }
+    .tagline { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-top: 20px; animation: fadeUp 0.8s ease 0.6s both; line-height: 1.8; max-width: 520px; }
+    .tagline span { color: var(--gold-dim); }
+    .meta-strip { max-width: 900px; margin: 0 auto 50px; padding: 0 40px; display: flex; align-items: center; gap: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); animation: fadeUp 0.8s ease 0.8s both; }
+    .meta-item { padding: 18px 0; flex: 1; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); }
+    .meta-item strong { display: block; font-size: 13px; font-weight: 400; color: var(--text-muted); letter-spacing: 0.05em; text-transform: none; margin-top: 4px; }
+    .meta-item + .meta-item { border-left: 1px solid var(--border); padding-left: 28px; margin-left: 28px; }
+    .docs-section { max-width: 900px; margin: 0 auto; padding: 0 40px 80px; }
+    .section-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 28px; display: flex; align-items: center; gap: 16px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .doc-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; margin-bottom: 32px; overflow: hidden; animation: fadeUp 0.8s ease both; transition: border-color 0.3s ease; }
+    .doc-card:hover { border-color: var(--border-glow); }
+    .doc-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px; border-bottom: 1px solid var(--border); gap: 16px; flex-wrap: wrap; }
+    .doc-title-block { display: flex; align-items: center; gap: 16px; }
+    .doc-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--gold-dim), var(--gold)); border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .doc-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--text); letter-spacing: 0.02em; }
+    .doc-sub { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-top: 3px; }
+    .doc-actions { display: flex; gap: 10px; align-items: center; }
+    .btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 20px; border-radius: 2px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; border: none; text-decoration: none; transition: all 0.2s ease; }
+    .btn-primary { background: var(--gold); color: #0b0c0e; font-weight: 500; }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border-glow); }
+    .btn-ghost:hover { border-color: var(--gold-dim); color: var(--gold); }
+    .toggle-btn { width: 100%; padding: 14px 28px; background: transparent; border: none; border-top: 1px solid var(--border); color: var(--text-dim); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s ease; }
+    .toggle-btn:hover { color: var(--gold); background: rgba(200,169,110,0.04); }
+    .toggle-icon { transition: transform 0.3s ease; font-size: 12px; }
+    .toggle-icon.open { transform: rotate(180deg); }
+    .pdf-viewer { height: 0; overflow: hidden; transition: height 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .pdf-viewer.open { height: 700px; border-top: 1px solid var(--border); }
+    .pdf-viewer iframe { width: 100%; height: 100%; border: none; display: block; }
+    .mobile-notice { display: none; padding: 40px 28px; text-align: center; color: var(--text-muted); font-size: 11px; line-height: 1.8; letter-spacing: 0.08em; }
+    .mobile-notice .mobile-open-btn { display: inline-flex; margin-top: 16px; }
+    @media (max-width: 768px) { .pdf-viewer.open iframe { display: none; } .pdf-viewer.open .mobile-notice { display: block; } }
+    .ai-note { max-width: 900px; margin: 0 auto 80px; padding: 0 40px; animation: fadeUp 0.8s ease 1s both; }
+    .ai-note-inner { border: 1px solid var(--border-glow); border-left: 3px solid var(--gold); padding: 24px 28px; border-radius: 0 4px 4px 0; background: linear-gradient(to right, rgba(200,169,110,0.04), transparent); display: flex; gap: 20px; align-items: flex-start; }
+    .ai-note-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .ai-note-text { font-size: 12px; line-height: 1.8; color: var(--text-muted); }
+    .ai-note-text strong { color: var(--gold); font-weight: 400; }
+    .tools-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .tool-tag { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 12px; border: 1px solid var(--border-glow); border-radius: 2px; color: var(--gold-dim); }
+    footer { border-top: 1px solid var(--border); max-width: 900px; margin: 0 auto; padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; color: var(--text-muted); }
+    .footer-brand em { font-style: italic; color: var(--gold); }
+    .footer-note { font-size: 10px; letter-spacing: 0.1em; color: var(--text-dim); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeDown { from { opacity: 0; transform: scaleY(0); transform-origin: top; } to { opacity: 1; transform: scaleY(1); } }
+    @media (max-width: 600px) {
+      header, .meta-strip, .docs-section, .ai-note, footer { padding-left: 20px; padding-right: 20px; }
+      .doc-header { flex-direction: column; align-items: flex-start; }
+      .meta-item + .meta-item { padding-left: 16px; margin-left: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-rule"></div>
+    <div class="badge">AI-Composed Documents · Emmason Designs</div>
+    <h1>Emmanuel<br/><em>Chukwuka</em></h1>
+    <p class="tagline">
+      Graphic Designer · Brand Identity Designer · Web Developer<br/>
+      <span>CV &amp; Resume — Composed Entirely Using AI Tools</span>
+    </p>
+  </header>
+
+  <div class="meta-strip">
+    <div class="meta-item">Location<strong>Lagos, Nigeria</strong></div>
+    <div class="meta-item">Experience<strong>3+ Years</strong></div>
+    <div class="meta-item">Business<strong>Emmason Designs</strong></div>
+    <div class="meta-item">Availability<strong>Remote · Worldwide</strong></div>
+  </div>
+
+  <section class="docs-section">
+    <div class="section-label">Documents</div>
+
+    <!-- CV CARD -->
+    <div class="doc-card" style="animation-delay:0.9s">
+      <div class="doc-header">
+        <div class="doc-title-block">
+          <div class="doc-icon">📄</div>
+          <div>
+            <div class="doc-name">Curriculum Vitae</div>
+            <div class="doc-sub">Full Professional History · 2 Pages · PDF</div>
+          </div>
+        </div>
+        <div class="doc-actions">
+          <a id="cv-open" href="#" target="_blank" class="btn btn-ghost">↗ Open</a>
+          <a id="cv-download" href="#" download="Emmanuel_Chukwuka_CV.pdf" class="btn btn-primary">↓ Download</a>
+        </div>
+      </div>
+      <button class="toggle-btn" onclick="toggleViewer(this,'cv-viewer','cv')">
+        <span>Preview Document</span><span class="toggle-icon">▾</span>
+      </button>
+      <div class="pdf-viewer" id="cv-viewer">
+        <iframe id="cv-iframe" title="Curriculum Vitae"></iframe>
+        <div class="mobile-notice">
+          PDF preview is not supported on this browser.<br/>
+          Use the button below to open the document.
+          <br/><a id="cv-mobile-open" href="#" target="_blank" class="btn btn-primary mobile-open-btn">↗ Open PDF</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESUME CARD -->
+    <div class="doc-card" style="animation-delay:1.05s">
+      <div class="doc-header">
+        <div class="doc-title-block">
+          <div class="doc-icon">📋</div>
+          <div>
+            <div class="doc-name">Resume</div>
+            <div class="doc-sub">Condensed Professional Summary · 2 Pages · PDF</div>
+          </div>
+        </div>
+        <div class="doc-actions">
+          <a id="resume-open" href="#" target="_blank" class="btn btn-ghost">↗ Open</a>
+          <a id="resume-download" href="#" download="Emmanuel_Chukwuka_Resume.pdf" class="btn btn-primary">↓ Download</a>
+        </div>
+      </div>
+      <button class="toggle-btn" onclick="toggleViewer(this,'resume-viewer','resume')">
+        <span>Preview Document</span><span class="toggle-icon">▾</span>
+      </button>
+      <div class="pdf-viewer" id="resume-viewer">
+        <iframe id="resume-iframe" title="Resume"></iframe>
+        <div class="mobile-notice">
+          PDF preview is not supported on this browser.<br/>
+          Use the button below to open the document.
+          <br/><a id="resume-mobile-open" href="#" target="_blank" class="btn btn-primary mobile-open-btn">↗ Open PDF</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ai-note">
+    <div class="ai-note-inner">
+      <div class="ai-note-icon">✦</div>
+      <div class="ai-note-text">
+        <strong>Composed entirely with AI.</strong> Both documents on this page — the CV and Resume — were researched,
+        written, structured, and formatted without using traditional document editors. Every element, from the professional
+        wording and layout to the typography and tone, was generated and refined using artificial intelligence tools alone.
+        This showcase page itself is also a demonstration of that same AI-powered capability.
+        <div class="tools-list">
+          <span class="tool-tag">Claude AI</span>
+          <span class="tool-tag">Google AI Studio</span>
+          <span class="tool-tag">Gemini API</span>
+          <span class="tool-tag">Emmason Designs</span>
+          <span class="tool-tag">Lagos, Nigeria</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-brand"><em>Emmason</em> Designs</div>
+    <div class="footer-note">Brand Identity · Web Development · AI-Powered Design</div>
+  </footer>
+
+  <script>
+    // Base64 PDF data
+    const CV_B64 = "JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PAovUHJvZHVjZXIgKHB5cGRmKQo+PgplbmRvYmoKMiAwIG9iago8PAovVHlwZSAvUGFnZXMKL0NvdW50IDIKL0tpZHMgWyA0IDAgUiAxMSAwIFIgXQo+PgplbmRvYmoKMyAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovUGFnZXMgMiAwIFIKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0NvbnRlbnRzIDUgMCBSCi9NZWRpYUJveCBbIDAgMCA1OTUuMjc1NiA4NDEuODg5OCBdCi9SZXNvdXJjZXMgPDwKL0ZvbnQgNiAwIFIKL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4KL1JvdGF0ZSAwCi9UcmFucyA8PAo+PgovVHlwZSAvUGFnZQovUGFyZW50IDIgMCBSCj4+CmVuZG9iago1IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXQovTGVuZ3RoIDM1NzcKPj4Kc3RyZWFtCkdiITtmPkJlZFwoT2FXNWQqbyk/UFc2QmRyJm9IYjZXLipOMFMrQ1pmJzgwdCJmUlA4TyJYKiNwTiVWNWBtPWNaUUxjZlQ+KEpgS20hWCEkNHI7bT0tTiUhOkc4TVJzSVo/JWEvUypPSl4tbjkmXDdlJmxVXFdTLUI4MHUkNi9QJCtUQHJLXDspZSMuX2ZsPyFpKistLiYuREIpZC40WlA1TiNfR0hBV0ZTIjUhNl8xYmA0UUZGPisicT0+OElKJ2FdLnJbYE5WOEhAKE8mLUs/WGQrWlIsQl5OT0xIOVIzclM8U14qTVdXZ0NyJjRaVU5zIV90bHJRQzJDMGEiZVFdRzgvKTZTSUBXN2BNNG9ZaiQ6bT00UUFFXCwrL2E9UU" + "JrI1UyVCFUQlQyTUhMaUVtSyQqXDRlJT1Na21vcG5iYlxXaGVvIS9LcUJoT2tSPE8zay9wNGQ8Img6Rm1rWFtIWlhwQWMqN1pWNTo2VS9QRCEuS0U1YSVSQlJFMmJlU1BEYEtIIlFZV2tuM044bmsvIVlAISppMVYlZzdgJUxWRltWVXFXbDFfXyhSXiVIZ1FiQjhCYTlMayNEIyRrZ10zaCZhKFMmTl1GWVQjOTYnaFQoJERcIlo8MShXOE45VHJSJzckT1ZMZ1M5QClEJURFIlpAJDRERitYQDNvRiFTYWc2NTszMz11KS8kPzM2SStMQTRCJnNzRVFPSiEuSStIKyYnVUpxRDNvTE1gUHNrWFkkc2VKPCkhLlNnUWUwKEgybUA/TlcmdVIpMzpHRmYpVEhPRGxHJGhFLFtwPmpdYVQkUVRTNnU0ajUicjxPOHRxQ2tzKUtydVRxQEMtVzlRX11UMnJfaScnaEc3NHBOcnFrWVFKRD8nKmVfS1FbPkd1TFRwJ1RhSE4/Vj00MzwrZEo7MGUhTmc/dGA4ZT0lV0hcRGNHPmFCWT1HMVM2YFdoLyw0Xk9RRypFT1lEQDxnQDExPUk6X15NSDAuMTs8LV0zYjElWkFMblVPTlppNjtZLjQzQTdyMVY0WyxcODkiamNIY2RbQ2RROzJhUTBxa0FpanFJOW85akdnN25JOE11OCdmQnMwUycuXUpORTZxQnRBQG8udWY4OCZNXzVeQ29gOCFXTUwiaEdqXSY/bHAmTmZFNzxVMko/SFNnYTQ3OyZQUFxALzlrTyJHXXRZXjsoJm4oKiRTYk5WbGBocl9TRG43PDZjcUJJSD9Qb1FRaGBEV2ZhYF85WDxaWzUpTDUzUW9CKEJSYEVsTTxZXDhhQCV1ciNwWU5WQTsxJ3QjbnRCIl85NC9MY1w4UVRJOnQ3PWhgaUR0byY8Mk1nW09qSj03QzxtZF8qTyoiO2A9OG41YmdtPCoiXWFhaUcsMSk3V2luUSIta3JdbiphPiwsbERNLG1DKUhSP1Y5JTxwOklsXEhYNS9sQz8zdEFwbU4vVzFjcWgpUEFKazNzMUhsRmMtO0swKkxsR3AnNVBaQVZoXVZkL3JCIUs4RlpEOEohLT5RYCc0T1JpMVFoaDwpLzoyYDxMQ21MOCJQZ1pfQXQsOS9TUGoxZy4hTG9tZEczWU1Wcml1P0UhUD02XHQ1IiZAQkEoQkY8LmU/XmpVS3UxKkhgXVNdOkNjPy07Y3UhTzRgKDd1aG46Om9QQ2ZsaEpqa3MxJCpiRkVgdDdlUWdTNFwmYis/dWxYJmBFIkFiWlhBJStbS0AzW0BpOWNdIUIuUFpsaEU4amdea2gxOCFSJGhmRTZTSGt0TDNFSWxjVExuc20iPEcrb1RRX1FobE9ARDUhcj1lNyR0ajVWTjNZOW0lXWJBIi1RYmYjLiJyQiZEOWpNY0lAWilHKkdmaHRoK2QhMXBLLTk3LGkiJzNlPURvaiIoX2twWDUjViFDRic/QS0kRkcqVXF0I3I5aVpHLk1iTFRwO2FZa3FXIWwpVlBZRSQuJm5pIXBRZG45VTMpK0w1I1RQRDhNPClKRFU6ISRQLiUmOyJsKig4cjk+MDItXWdCS2VZbDAybT04XzcyZ0BlPTw4REFRRmkwVVhRSjg7Ok9DNC0tLixVNC46R2RoSm0tXjQ/STRLQFosX2ktcls1Iy5jTiFCI2dfVEcvT11BYTZFdDpNQjtpVUBGQEklMnNdaENUOEUyQWtGcnM2cWpQIlc1N2NlVEVkbicjRi9NbSVfKyJNZzlsMylaQVVFalFATmgwRlJQZEpfXEI2MjIoR05bO21mNFQtciE/Y14wOCdWTj0yQmRjLzVPJ1BLIloqUjciXFxqTnB1UUF0V1pOXFoiJThZIT4/YS9KIzhvIzwlbTonRSFLZFgxYCtx" + "MHUkGRcIlo8MShXOE45VHJSJzckT1ZMZ1M5QClEJURFIlpAJDRERitYQDNvRiFTYWc2NTszMz11KS8kPzM2SStMQTRCJnNzRVFPSiEuSStIKyYnVUpxRDNvTE1gUHNrWFkkc2VKPCkhLlNnUWUwKEgybUA/TlcmdVIpMzpHRmYpVEhPRGxHJGhFLFtwPmpdYVQkUVRTNnU0ajUicjxPOHRxQ2tzKUtydVRxQEMtVzlRX11UMnJfaScnaEc3NHBOcnFrWVFKRD8nKmVfS1FbPkd1TFRwJ1RhSE4/Vj00MzwrZEo7MGUhTmc/dGA4ZT0lV0hcRGNHPmFCWT1HMVM2YFdoLyw0Xk9RRypFT1lEQDxnQDExPUk6X15NSDAuMTs8LV0zYjElWkFMblVPTlppNjtZLjQzQTdyMVY0WyxcODkiamNIY2RbQ2RROzJhUTBxa0FpanFJOW85akdnN25JOE11OCdmQnMwUycuXUpORTZxQnRBQG8udWY4OCZNXzVeQ29gOCFXTUwiaEdqXSY/bHAmTmZFNzxVMko/SFNnYTQ3OyZQUFxALzlrTyJHXXRZXjsoJm4oKiRTYk5WbGBocl9TRG43PDZjcUJJSD9Qb1FRaGBEV2ZhYF85WDxaWzUpTDUzUW9CKEJSYEVsTTxZXDhhQCV1ciNwWU5WQTsxJ3QjbnRCIl85NC9MY1w4UVRJOnQ3PWhgaUR0byY8Mk1nW09qSj03QzxtZF8qTyoiO2A9OG41YmdtPCoiXWFhaUcsMSk3V2luUSIta3JdbiphPiwsbERNLG1DKUhSP1Y5JTxwOklsXEhYNS9sQz8zdEFwbU4vVzFjcWgpUEFKazNzMUhsRmMtO0swKkxsR3AnNVBaQVZoXVZkL3JCIUs4RlpEOEohLT5RYCc0T1JpMVFoaDwpLzoyYDxMQ21MOCJQZ1pfQXQsOS9TUGoxZy4hTG9tZEczWU1Wcml1P0UhUD02XHQ1IiZAQkEoQkY8LmU/XmpVS3UxKkhgXVNdOkNjPy07Y3UhTzRgKDd1aG46Om9QQ2ZsaEpqa3MxJCpiRkVgdDdlUWdTNFwmYis/dWxYJmBFIkFiWlhBJStbS0AzW0BpOWNdIUIuUFpsaEU4amdea2gxOCFSJGhmRTZTSGt0TDNFSWxjVExuc20iPEcrb1RRX1FobE9ARDUhcj1lNyR0ajVWTjNZOW0lXWJBIi1RYmYjLiJyQiZEOWpNY0lAWilHKkdmaHRoK2QhMXBLLTk3LGkiJzNlPURvaiIoX2twWDUjViFDRic/QS0kRkcqVXF0I3I5aVpHLk1iTFRwO2FZa3FXIWwpVlBZRSQuJm5pIXBRZG45VTMpK0w1I1RQRDhNPClKRFU6ISRQLiUmOyJsKig4cjk+MDItXWdCS2VZbDAybT04XzcyZ0BlPTw4REFRRmkwVVhRSjg7Ok9DNC0tLixVNC46R2RoSm0tXjQ/STRLQFosX2ktcls1Iy5jTiFCI2dfVEcvT11BYTZFdDpNQjtpVUBGQEklMnNdaENUOEUyQWtGcnM2cWpQIlc1N2NlVEVkbicjRi9NbSVfKyJNZzlsMylaQVVFalFATmgwRlJQZEpfXEI2MjIoR05bO21mNFQtciE/Y14wOCdWTj0yQmRjLzVPJ1BLIloqUjciXFxqTnB1UUF0V1pOXFoiJThZIT4/YS9KIzhvIzwlbTonRSFLZFgxYCtx" + "BkYgZG9jdW1lbnQgLS0gZGlnZXN0IChvcGVuc291cmNlKQoKL0luZm8gOCAwIFIKL1Jvb3QgNyAwIFIKL1NpemUgMTIKPj4Kc3RhcnR4cmVmCjU5MTMKJSVFT0YK";
+    const RESUME_B64 = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNCAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EtT2JsaXF1ZSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjMgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago1IDAgb2JqCjw8Ci9Db250ZW50cyAxMCAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yNzU2IDg0MS44ODk4IF0gL1BhcmVudCA5IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago2IDAgb2JqCjw8Ci9Db250ZW50cyAxMSAwIFIgL01lZGlhQm94IFsgMCAwIDU5NS4yNzU2IDg0MS44ODk4IF0gL1BhcmVudCA5IDAgUiAvUmVzb3VyY2VzIDw8Ci9Gb250IDEgMCBSIC9Qcm9jU2V0IFsgL1BERiAvVGV4dCAvSW1hZ2VCIC9JbWFnZUMgL0ltYWdlSSBdCj4+IC9Sb3RhdGUgMCAvVHJhbnMgPDwKCj4+IAogIC9UeXBlIC9QYWdlCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9QYWdlTW9kZSAvVXNlTm9uZSAvUGFnZXMgOSAwIFIgL1R5cGUgL0NhdGFsb2cKPj4KZW5kb2JqCjggMCBvYmoKPDwKL0F1dGhvciAoXChhbm9ueW1vdXNcKSkgL0NyZWF0aW9uRGF0ZSAoRDoyMDI2MDMwNjE1MTYyMiswMCcwMCcpIC9DcmVhdG9yIChcKHVuc3BlY2lmaWVkXCkpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDI2MDMwNjE1MTYyMiswMCcwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0IChcKHVuc3BlY2lmaWVkXCkpIC9UaXRsZSAoXChhbm9ueW1vdXNcKSkgL1RyYXBwZWQgL0ZhbHNlCj4+CmVuZG9iago5IDAgb2JqCjw8Ci9Db3VudCAyIC9LaWRzIFsgNSAwIFIgNiAwIFIgXSAvVHlwZSAvUGFnZXMKPj4KZW5kb2JqCjEwIDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDMwOTcKPj4Kc3RyZWFtCkdiITtmPyQiYy8mcTBNWGZWYWJhYTomQihNMSlzbS8pKls0OCUiVERHL2MwTCN0XXFFSmdFckxUIi4pYjAjLnVwW1YzIjBGbWgvWWAiRUBYZlJyIUNCOXQ+" + "PGB1ZFxJKW9NXnVrNCZBbyEvJig3JCY1OVowWWA7MnI5MT0vVURkaFlici5dKSInN0ZoVGtpVXNHWlFcQ0hUMzpEKTMzaEQlVldmMEU+MnJhVUJEXDFMMHR0MzdTSlRRJCVCdUUvOlRcLmVXYCVoPzwoKC1QJVNQSyViVDt1TEFZNDxAbDBbcUQ4bk89IUFdbTxRdGhOPUU/K2pJNXBKP3AoTyREL1NjOkxpXlZUZ2EzVmkuPVphRzx0UU8+cEpmPEZAUUM0aDgyPypkZm5kSyVPN00vQE8yR29lXFYoSDJOPGtGJXNGPVRIMzZfLF5sZSE3W0lYcyFgRkBebVVnSjBGO0hWWmklKFRnZk0pJlMrZWMhLkV1MlEybztFYmgmRlQvVyZwXVsyN2oiP0o+KWxoaCpAWU88JDUpXnFVWzRqPWVsM2BtYlNoJDI7QGhgKydlLlEwZUgxRiUjNmVKRDxFQ2VbUGJyPnJvYmh1cmVjVTc+ZEcwaT1MV0xBNl9aU2NmS1ptZ2tUN1MyKEQ2TCtjZXNQdDRLJVw2QjZWWjtyO0ZiKy1LXiVfYlcyN25hNSQrW1kyLCswYkxTRSMxX1YpSWgtNihcTU0lTDxnb1EuK0VaJWdDSEAjMllDY24xXTUkc0AnQEo4Z0pDMzkmWy1VT3BFKF5PK15XdT9Obyo6cEZWLmxaV0A0bTNIMGpVS0UyVEwvamdZNSlvO1RVQztRJDppXiYuVSZyOD4hNVNrMGhqOFhQVVFvazxRPmViKURaYkFcNmNIMCxhKSIvOkJQZ2Yncl86c1FhYWdGKmEkLFxvLFRxazU4MWkhWWZuTVRyJDdxI15aLDtgamk4TD1JYTQqVk5UKVw0OkouQWYwPlRkYktjXj1HPSg+NC48PkdhcjZAIW9cLFhLXyNKalVVQzZFaEY3ODd1Kj9KZ0ZBJTNCa05vJi5mWFRjO085bFFAc3Q1RUc7LF8pKSUtYXBXOGNwZ0BEYShIclFPSzRLMGtHQy5KYElpck90IyMwYC1xT0YoQ0JOJF1vJEoiUllnK2xZIV5UbUNfWiRPJ1x1I0MkMClAVUtLcCsrb3I4YmNmNypRZTE+dEFKJEEkbDVjR1pSU0YtLkBLJDhJQDBwZTBCUDkqRXBjVj1vY1ohMyROZHRjOWAmT1ApY0JjUigiVkRyS1RBVGUwLDxUQEUhTGY0WVFqcyo2XmdHMjxCdVtwOCs7WVktUmFPU0oqQmZeOF8wXVQmWyNSVVddPyRwOTFeMnJVNURNK1VkYUNBXVgsSzokPFFbKEVQUjtRRTRNY1pHQy0nKDZiMFNmLWlGNy8wRzNAXVVnWW9NSDRGZDxXbypORzpTclJfOWo2UDA2TzFkUVZBZlciWUNdLlokOSRSOWBLPiEzYV82Nk5iJUdfbChrbW1dNG5bRS1TOFlAdUgkJT5kJ0ooPWJkMVdLRW4vK1U9Sl8oZWddVEwsV1Y9TDZAPio+YyhaJGVacD5Db04sWzFQWV5xMHBLTVdXTDldXj5qNnRkKi5SU28rP0Q3OVE0TzpyNXJyOS1LWyc1S0IybkkiPUE8RTFxW08wLyQpLmB0X1FfTVBUJmdFazRlQyY3R3F0RS9MZDA+V3A/LFcvZ18uWjBGajJpKzhzQSVmJnBubCFDIj9NR0lAb15iOWYiJ0VfbVlLcSwpOUM/Rl9fWD8qc2ZeNmhsMytuMkcoIW9IRTs6VjNyUSNcL1RPKSFNXEliNz8mYm8vTFo6LklHcEIiT2YmWjVNMWU7LFBqXVBrWSlVQDI/V2cmQlE4bnM1M2xCTFwjTmxhKTUkOlJOIUtLQS5zJDc8KiEsJy8qKjhKKFoiTHUzMzxTN1pQMWMnQSpBO0o8I3VOb2Qham02Zm8xI0NKI1Mjbjo3SmViXD5bakMzRCE+UHRsWScqVlFqRkZhcCtkZGIxTTBLJWNXcUxTNiJgOWdsWjtzYD1GVyFLXE5NMz10Oj1SLUErQWFMOmJWUkJTaGs8K24uSSpWTnBbRFFZWlpRLCRvX2c9QUAwaFc+ZkYzYDA3IXVmUHFKWjo5JFFyQEdwJXI2b1xAVVlBWnBmRyR0Il8vJzk7OHNeIWRPV0g+ZFwuRUBrY11wdG5VKipMTUA0VzZNXC47Xlo7TUJ0Z0NhUCsqMDg5LlE1Sk9WLUl0PXI2RD9RJzlxc3U9LiZoNDNqRjBzaElTJEMkLjtiSk5OaEpQMmZgYSU3MTtPMC4ta2dsPyVPcm1MbVpmJ1dXJExJdSdmXGlZX1pgTVUmKiNQblpCTyNwNk1CQzNEV15BXkY+aHEyWURFMEpkQzNdUmsuI21ASTlYO1ssKDVzOmJkTUguSSkmJnU9NClTTVhqIls6Jj8tJ0dGVDg1Nk9vcydQJ1lnSVJMSz1kJCQ8QClcOmQ8IyswUmxkXC9CQ3FOVER1XV5iTGpHKEgsUSIzMTdpYk4tQ1o4QD8iSm87YjFuU3RxLk1oKlhHNXU/JD9cMENyJXNDOGk2MTFlKUc2NCQlJUBlWzdGJ1VkWSEoIm46PmdKV1AmJFlpayIvam9yPGRVUHA3Z0tOcGcuQD41NF5NMiNHT0UmIU0kSzA1cXVaa0dpV0trN1I0NzlAdEpTPW1KdU1YKGtuPkdGJmgkU0puMjVUYj5BO0U1K1pVNDAlWElnTmhhJCpDUiltTjQ5YyhNJEdyWUNRUyFoVWpsVVNbbCdRXyJUaSooTFlqPkhcLDAob3RBMGdjJywjKj9LcFRUbSwjTHQqXy9BRVNLUiNAYyFQLFxTXy8naUhuZnIsV21tciwvaUIxU3FjWFZPL3RgQm1vdVpLPUxJPUNkJyI3cjtTQ0hnTm5DJSw+LHVlQkRPaWhaJ2NvU2JXbFtVbj9TZmNnSV9lRjhWUjVMI2hiJyk3cEAqSVVZNSVMPE4sMTFZX1c9ZjlxVkNtTWRsYipWTTxvNGdxLWM8QmJjYzRpaUFRRzJHTWg/OWNKXll0WEpHLz5jQi8iOy10dCxFdVE2SDtnNSw5QExqKUM7KmRNOSVSKS0vcEtjcVNWZi8qVCcoKWUxS0VOLi9rYTpFYionPUFQRT9lQzRzJmBBNElpP1VJPjJSV0ViVTMuLlNLQDhTbFk2a1daQVZBIicpOy4kLCkrPkxUPGluJ2BxO1UlZ0kxTSQvODohbERuYSdGdChUQ09XdFhIQyszMUQvQjpYbXBvO3AxQHRzKlltJjZfJk1ZaE4zNUU1XHJmcilzUmpmSE0yTG8kNDkyQU0iWVM2ZFI9P0lbJWYlK0IiKktKXWdyLSlCW2svdFAnVT1oX0glTjdbSUpHW2FZNFwpblo2XTd0RSZsJ1NbIkJUXiVlLEVDRDJdSmhMc0dkNkNibVBoWWY/YVkyMyhZRVcicm5APE9kKmFlbDBlRCtCPSJXL0U0NTdwc0RUdFo8RllEazJMWWpUR1plYCYxVF9fVERtN01NPjosZCk1VkFbQlpvK1ZPV1kkKnBeYCRwYk9BbzlIYEhxZW47L2BwbWUlYzc4dTxmbmpmNVMqQFFBVUBtIW09SipgMSJuUmtYLUMvXj9YO0BrYSkjPnRpMWtlamY9KjovMjFTU1QlNF0nYiFecnR0cDRvUy8vKEZNWyZqPl91ZiVeTSY7OTBPZi07YyZHVUE2Zj5BJzdObzI6Jmc4bytWNXJQQyVjWkI1QTwsQ0JrZTBrNycqXjlocVFjXCNzcT4yJS9qVGA3KD05VElEQ2hQQ15BL00nWmU3bmNbVzs/OUIpM2VTdHJOWTVKRGlgLXFmRVZQVkZqWktLZ3FSJHM8N188QTgla1ltXkU3OGhbYzEqSkJgS0xtVVhCalApWVdFUEBiRCU6TV1kckMmQCRpYSxhSDJXNktdVDFSPzlmQSIvKjV1RkMtYXAqODVqTi45RWlXXDFKP1MpN05pO2VIZDtwOWc5KmovK1lsRixNNnJtTTVsbjxdVFZcYlFlKzYwRWxvdDYoVFojcmNaTTNDKlElaWtOYWNqWVJSfj5lbmRzdHJlYW0KZW5kb2JqCjExIDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDEzNjUKPj4Kc3RyZWFtCkdiIVNrPkJBTFgnUm80SFM+VCxuUyUrYyNiUCEvNCxmOipkZFFsUk85TzdpLTphN01tUC9IQTxtdV04O1JZP3VMUUolW1srZFQ2Z15bR0ZBRiRfImYwPCt1czJaUmNvbkUtNUBUZUthUk0xWllCQGkuc2ZoZzIpKCkudTYlRWdCKF1BTzJYJVwuKihqP2FrUT0mLVdxRjJhQVMlZ1JqZjtvbW0saSQtTy9sUDtqKCUiOys0LlM6WG5bYVhwKF9KQ2NMUiQ3RyNKLk1jSW9fcCpwPz8sL14tXExLMCJAS0VmLS5ZZjgsRiFwRFsvPCgzdShOVFV1LHQ2ZCNgaVskSlVUSzRlQURyMWpcPEZNXiQ7LzpuO09gWkpoX1k1Szt1OysmPzFjUys9UyllYStgYDI8UDxaa29ANFBxajNhaScqSkohXkYrXys7Vj1YaiJEJFcvRFBKMzFDTXBqPV1xUHFzXk8oSjVKJiEmZmNXTzNQQDdcdWAvJklycltCUldXa2VXNGBDPkQ9M11eRG8mUWQ2WlMobGQ9XExILyZxSChTRDliQFVnKjAtSk9SbyxWND5fPCJsQ2Y0VWpHKE8/KDwhcGg1JScxaDA8QGZlbFRyOmhhKHVLPSMib2xbdFFNWi9QRVVNMXJYXmgpamhLbFFGM28iLDw0TWpFOHM9ODpVSk83TzQ1IVQjRVhuc1l0MlVYN0lARnUrXENiVj8lZVZYNEFOSCZhM21RSjFbaSs7MEctOmFELlJdLUVgOVYjazNKSmZiMSpSMGRVOShZJHIxVFcrbUJjKU5ucyxLJygwOmtqSV0+SmhBaStJTTNCWD5PRSRUNi4iTk44VlQ8UThfbmpCO3JUV1AyJm1pRUljLjJXLzE7VElaKF5AbFJfc3U6TXFyLVovITVLYGM9OWpZVF1za042WU1RdTBoZCNmMnFNNVUhR28iYl87N29hW0glJXFvY1kkRFdyVldtazI2MSZdY1NcOnRkYS1GcnJzZ25gYVJHRFEyMy8mMGAkRCQ5V19JU0RHZScuMzxkN0YhWl49JUprQi1kPkpxNy91TEg+KyJSbGZSXz5QRDtQQFNvQm0mZCohNCJZb1FVblU1RElMLk1rQCcmaiNBWj9sWDY4M0NdYTJ0T3FJRGpDVl9OTnM3YjlHX1k3NlE1Z0ZAclE6PDc7czkvWlFCdUlpcWZuKlVDN20wXWIiWVtaIVJZMGNRWzBMZUZJRHUlRVxlOGEwajtmWUxkbiNIPjpEV3FlZGlVUmg8SDQ+UjtZTmNia2c/WmlkcGU1MDgjM3EwMTxpKkZBIVFKZUhpUT9FLlQsVUtmcGdfS1E+RyFYbENoRTs4TFZxSXFNcj09ZChYWFVGKl85UFNeIz1Lbi81TWQ0Iko7O2AzdG4iYGppbFFgIWNqQSxIUzIjQzxhaVJyOlZjPWUyXmcwZkUoVV4iTSM6MGo6Xi0xRElIaUQsX19NTkZWYkxqcWMoX0kpKjc0SlhUNHBJPXQ9JS9JJVhOVlFBaXJRQytbckpUV0YwNnFwXXEkZFlMYHJUb2pmZFdVJy1wOiU1JSNeQzZHMjhEWUYmaSREXDM1LCtoNydScCs7dTcmZGhjbCQpMkMuKT4wVi9BbSNxN1twYERibWI4dVlsYGU1YmRvUWVZWFlNIm5gcy9YZjpKKk4qN3JPOFFsQl9waD8mTy0vPy9mIitUXTVSN2ckW0xrcmhidHI2RVU9O2JrLD5IJjk7XiwlS3VXQEpuVDdjZ1xsaW5IPnBEOF0jdWllW2s2KG5CSDZINEYvU2I0P243byxRcV0jR0ZMSm5+PmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDEyCjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA2MSAwMDAwMCBuIAowMDAwMDAwMTEyIDAwMDAwIG4gCjAwMDAwMDAyMTkgMDAwMDAgbiAKMDAwMDAwMDMzMSAwMDAwMCBuIAowMDAwMDAwNDQ2IDAwMDAwIG4gCjAwMDAwMDA2NTAgMDAwMDAgbiAKMDAwMDAwMDg1NCAwMDAwMCBuIAowMDAwMDAwOTIyIDAwMDAwIG4gCjAwMDAwMDEyMDIgMDAwMDAgbiAKMDAwMDAwMTI2NyAwMDAwMCBuIAowMDAwMDA0NDU2IDAwMDAwIG4gCnRyYWlsZXIKPDwKL0lEIApbPDI4NGViODU0ODcyNzc4MTNiNWU2OWYyOWFhY2NiNGZlPjwyODRlYjg1NDg3Mjc3ODEzYjVlNjlmMjlhYWNjYjRmZT5dCiUgUmVwb3J0TGFiIGdlbmVyYXRlZCBQREYgZG9jdW1lbnQgLS0gZGlnZXN0IChvcGVuc291cmNlKQoKL0luZm8gOCAwIFIKL1Jvb3QgNyAwIFIKL1NpemUgMTIKPj4Kc3RhcnR4cmVmCjU5MTMKJSVFT0YK";
+
+    // Convert base64 to Blob URL — universally supported by all browsers
+    function b64toBlob(b64, type) {
+      const binary = atob(b64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      return URL.createObjectURL(new Blob([bytes], { type }));
+    }
+
+    // Create blob URLs on page load
+    const cvURL = b64toBlob(CV_B64, 'application/pdf');
+    const resumeURL = b64toBlob(RESUME_B64, 'application/pdf');
+
+    // Wire up Open buttons
+    document.getElementById('cv-open').href = cvURL;
+    document.getElementById('resume-open').href = resumeURL;
+
+    // Wire up Download buttons
+    document.getElementById('cv-download').href = cvURL;
+    document.getElementById('resume-download').href = resumeURL;
+
+    // Wire up mobile fallback open buttons
+    document.getElementById('cv-mobile-open').href = cvURL;
+    document.getElementById('resume-mobile-open').href = resumeURL;
+
+    // Iframe sources (set lazily when preview is opened)
+    const iframeSrc = { cv: cvURL, resume: resumeURL };
+    const iframeLoaded = { cv: false, resume: false };
+
+    function toggleViewer(btn, viewerId, key) {
+      const viewer = document.getElementById(viewerId);
+      const icon = btn.querySelector('.toggle-icon');
+      const label = btn.querySelector('span:first-child');
+      const isOpen = viewer.classList.contains('open');
+
+      if (!isOpen && !iframeLoaded[key]) {
+        document.getElementById(key + '-iframe').src = iframeSrc[key];
+        iframeLoaded[key] = true;
+      }
+
+      viewer.classList.toggle('open');
+      icon.classList.toggle('open');
+      label.textContent = isOpen ? 'Preview Document' : 'Close Preview';
+    }
+  </script>
+</body>
+</html>
